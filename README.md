@@ -40,7 +40,7 @@ Welcome to my React.js To-Do App, a dynamic and secure task manager powered by F
 
    ```
 ##
-   <img width="967" alt="Screenshot 2023-09-12 at 3 15 43 PM" src=""C:\Users\HP\Pictures\Screenshots\Screenshot (529).png"">
+   <img width="967" alt="Screenshot 2023-09-12 at 3 15 43 PM" src="""">
 
 
 ## Problems Encountered and Resolution
