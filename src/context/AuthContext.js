@@ -1,52 +1,42 @@
-import { useContext, createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider,
-    signOut,
-    onAuthStateChanged,
-    signInWithRedirect,
-     } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
+import {
+  onAuthStateChanged,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "firebase/auth";
+import { auth } from "../firebase";
 
-import {auth} from '../firebase';
+const UserContext = createContext();
 
-const AuthContext = createContext();
+export const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-export const AuthContextProvider = ({children}) => {
-        const [user, setUser] = useState({});
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
 
-        const googleSignIn = async () => {
-            const provider =   new GoogleAuthProvider();
-             await signInWithRedirect(auth, provider);
-                       
-        } 
+  const logout = () => {
+    signOut(auth);
+  };
 
-        const logOut = () => {
-            signOut(auth).then(() => {
-                // Sign-out successful.
-              }).catch((error) => {
-                console.log(error);
-                // An error happened.
-              });
-        }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
-        useEffect(()=> {
-            const unsubscribe =  onAuthStateChanged(auth,(currentUser) =>{
-            
-                 setUser(currentUser);
-                // console.log('User', currentUser);
-            })
-            return () => {
-                unsubscribe();
-            }
-        }, []);
-
-
-    return (
-        <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
-            {/* not loading then show the children */}
-            {children} 
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <UserContext.Provider value={{ user, loading, googleSignIn, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
 
 export const UserAuth = () => {
-    return useContext(AuthContext)
+  return useContext(UserContext);
 };

@@ -10,12 +10,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBVd1yng_RDPtadXsUxIVTMI1sYjQWT9ks",
-  authDomain: "todo-app-bb390.firebaseapp.com",
-  projectId: "todo-app-bb390",
-  storageBucket: "todo-app-bb390.appspot.com",
-  messagingSenderId: "618100234323",
-  appId: "1:618100234323:web:a9774685926c876a3f0ea6"
+  apiKey: "AIzaSyBdtaKmbLfs-IMpBRrHlR63vZJ76CwSul0",
+  authDomain: "prasad-todo-app.firebaseapp.com",
+  projectId: "prasad-todo-app",
+  storageBucket: "prasad-todo-app.firebasestorage.app",
+  messagingSenderId: "376170013169",
+  appId: "1:376170013169:web:6ffa0a8f3233f08f996450",
+  measurementId: "G-1CHYX10S7T"
 };
 
 // Initialize Firebase
@@ -24,4 +25,4 @@ const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app);
 
 // export database firestore 
-export const db = getFirestore(app);
+export const db = getFirestore(app); 
